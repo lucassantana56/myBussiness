@@ -48,11 +48,13 @@ public class UserProvider extends ContentProvider {
         public static final String _ID = "UserId";
         public static final String _name = "Name";
         public static final String _balance = "Balance";
+        public static final String _image = "Photo";
 
         public static String CreateUserTable() {
             return "CREATE TABLE " + _tableName + " ( " + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + _name + " VARCHAR(80) NOT NULL, "
-                    + _balance + " FLOAT NOT NULL"
+                    + _balance + " FLOAT NOT NULL,"
+                    + _image + " BLOB"
                     + ");";
         }
 

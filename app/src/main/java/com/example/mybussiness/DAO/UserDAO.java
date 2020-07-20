@@ -33,16 +33,26 @@ public class UserDAO {
 
         cv.put(UserProvider.UserContract._balance, user.get_balance());
         cv.put(UserProvider.UserContract._name, user.get_name());
+        cv.put(UserProvider.UserContract._image, user.getPhoto());
 
         long i = db.insert(UserProvider.UserContract._tableName, null, cv);
         return i;
+    }
+
+    public void UpdateUserBalance(long userId, float amount) {
+        db.execSQL("update "
+                + UserProvider.UserContract._tableName
+                + " SET "
+                + UserProvider.UserContract._balance
+                + " = " + amount
+                + " WHERE " + UserProvider.UserContract._ID + "= " + userId);
     }
 
     public List<User> GetUser() {
         List<User> users = new ArrayList<>();
 
         Cursor cursor = db.query(UserProvider.UserContract._tableName,
-                new String[]{UserProvider.UserContract._ID, UserProvider.UserContract._name, UserProvider.UserContract._balance},
+                new String[]{UserProvider.UserContract._ID, UserProvider.UserContract._name, UserProvider.UserContract._balance, UserProvider.UserContract._image},
                 null,
                 null,
                 null,
@@ -55,6 +65,7 @@ public class UserDAO {
             u.set_iD(cursor.getInt(0));
             u.set_name(cursor.getString(1));
             u.set_balance(cursor.getFloat(2));
+            u.setPhoto(cursor.getBlob(3));
             users.add(u);
         }
 

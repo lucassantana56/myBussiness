@@ -1,16 +1,30 @@
 package com.example.mybussiness.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.io.ByteArrayOutputStream;
 
 public class User implements Parcelable {
     int _iD;
     String _name;
     Float _balance;
+    byte[] photo;
 
-    public User(String _name, Float _balance) {
-        this._name = _name;
-        this._balance = _balance;
+    public User(String name, Float balance, byte[] photo) {
+        this._name = name;
+        this._balance = balance;
+        this.photo = photo;
+    }
+
+    public User(String name, Float balance, Bitmap photo) {
+        this._name = name;
+        this._balance = balance;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        this.photo = stream.toByteArray();
     }
 
     public User() {
@@ -60,6 +74,18 @@ public class User implements Parcelable {
 
     public void set_balance(Float _balance) {
         this._balance = _balance;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public Bitmap getBitmap() {
+        return BitmapFactory.decodeByteArray(this.photo, 0, photo.length);
     }
 
     @Override

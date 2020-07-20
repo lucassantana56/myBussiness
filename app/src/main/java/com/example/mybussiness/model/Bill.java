@@ -1,8 +1,12 @@
 package com.example.mybussiness.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class Bill {
+public class Bill implements Parcelable {
+
     int _iD;
     String _name;
     String _description;
@@ -20,6 +24,32 @@ public class Bill {
         this._userId = _userId;
     }
 
+
+    protected Bill(Parcel in) {
+        _iD = in.readInt();
+        _name = in.readString();
+        _description = in.readString();
+        _amount = in.readDouble();
+        byte tmp_repeat = in.readByte();
+        _repeat = tmp_repeat == 0 ? null : tmp_repeat == 1;
+        _userId = in.readInt();
+    }
+
+    public Bill() {
+    }
+
+
+    public static final Creator<Bill> CREATOR = new Creator<Bill>() {
+        @Override
+        public Bill createFromParcel(Parcel in) {
+            return new Bill(in);
+        }
+
+        @Override
+        public Bill[] newArray(int size) {
+            return new Bill[size];
+        }
+    };
 
     public String get_name() {
         return _name;
@@ -67,5 +97,28 @@ public class Bill {
 
     public void set_userId(int _userId) {
         this._userId = _userId;
+    }
+
+
+    public int get_iD() {
+        return _iD;
+    }
+
+    public void set_iD(int _iD) {
+        this._iD = _iD;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_name);
+        dest.writeString(_description);
+        dest.writeDouble(_amount);
+        dest.writeByte((byte) (_repeat == null ? 0 : _repeat ? 1 : 2));
+        dest.writeInt(_userId);
     }
 }

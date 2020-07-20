@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">myBussiness</string>
     <string name="content_login_end_icon">Name</string>
+    <string name="title_activity_first_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="content_description_search">search</string>
+    <string name="content_description_more">more</string>
+    <string name="more">more</string>
+    <string name="search">search</string>
+    <string name="content_description_media">background</string>
+    <string name="person">person</string>
+    <string name="content_description_person">person</string>
 </resources>

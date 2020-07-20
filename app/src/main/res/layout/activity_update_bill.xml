@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".activity_add_bill">
+    tools:context=".activity_updateBill">
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
@@ -86,10 +88,17 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/btn_addNewBill"
+        android:id="@+id/btn_updateBill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="ADD" />
+        android:text="UPDATE" />
+
+    <Button
+        android:id="@+id/btn_deleteBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="DELETE" />
 
 </LinearLayout>
