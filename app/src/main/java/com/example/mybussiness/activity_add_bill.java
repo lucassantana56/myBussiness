@@ -30,7 +30,7 @@ public class activity_add_bill extends AppCompatActivity {
     EditText editName, editDesc, editExpirationDate, editAmount;
     SwitchMaterial switchRepeat;
     Button btnAddNewBill;
-    final Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar = Calendar.getInstance();
 
 
     private UserDAO userDAO;
@@ -69,13 +69,15 @@ public class activity_add_bill extends AppCompatActivity {
                     billDAO.InsertBill(b);
 
                     userDAO.UpdateUserBalance(userId, (float) (balance - b.get_amount()));
+
+
                     Intent intent = new Intent(v.getContext(), activity_billsList.class);
 
                     intent.putExtra("USERID", userId);
-                    intent.putExtra("BALANCE", (float) (balance - b.get_amount()));
                     intent.putExtra("USERNAME", userName);
+                    intent.putExtra("BALANCE", balance);
                     startActivity(intent);
-
+                    createNoticationEvent();
                     finish();
 
                 } catch (Exception error) {
@@ -84,8 +86,6 @@ public class activity_add_bill extends AppCompatActivity {
                 }
             }
         });
-
-        final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -129,7 +129,7 @@ public class activity_add_bill extends AppCompatActivity {
         myCalendar.set(Calendar.MINUTE, 8);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,
-                myCalendar.getTimeInMillis(),
+                tenSecodsInMilis,
                 pendingIntent
         );
     }

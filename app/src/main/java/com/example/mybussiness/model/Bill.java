@@ -7,15 +7,25 @@ import java.util.Date;
 
 public class Bill implements Parcelable {
 
-    int _iD;
+    long _iD;
     String _name;
     String _description;
     double _amount;
     Date _expirationDate;
     Boolean _repeat;
-    int _userId;
+    long _userId;
 
     public Bill(String _name, String _description, double _amount, Date _expirationDate, Boolean _repeat, int _userId) {
+        this._name = _name;
+        this._description = _description;
+        this._amount = _amount;
+        this._expirationDate = _expirationDate;
+        this._repeat = _repeat;
+        this._userId = _userId;
+    }
+
+    public Bill(long _iD, String _name, String _description, double _amount, Date _expirationDate, Boolean _repeat, int _userId) {
+        this._iD = _iD;
         this._name = _name;
         this._description = _description;
         this._amount = _amount;
@@ -91,16 +101,16 @@ public class Bill implements Parcelable {
         this._repeat = _repeat;
     }
 
-    public int get_userId() {
+    public long get_userId() {
         return _userId;
     }
 
-    public void set_userId(int _userId) {
+    public void set_userId(long _userId) {
         this._userId = _userId;
     }
 
 
-    public int get_iD() {
+    public long get_iD() {
         return _iD;
     }
 
@@ -119,6 +129,6 @@ public class Bill implements Parcelable {
         dest.writeString(_description);
         dest.writeDouble(_amount);
         dest.writeByte((byte) (_repeat == null ? 0 : _repeat ? 1 : 2));
-        dest.writeInt(_userId);
+        dest.writeLong(_userId);
     }
 }

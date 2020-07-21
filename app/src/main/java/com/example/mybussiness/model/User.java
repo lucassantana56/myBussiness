@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import java.io.ByteArrayOutputStream;
 
 public class User implements Parcelable {
-    int _iD;
+    long _iD;
     String _name;
     Float _balance;
     byte[] photo;
@@ -20,6 +20,15 @@ public class User implements Parcelable {
     }
 
     public User(String name, Float balance, Bitmap photo) {
+        this._name = name;
+        this._balance = balance;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        this.photo = stream.toByteArray();
+    }
+
+    public User(long userId, String name, Float balance, Bitmap photo) {
+        this._iD = userId;
         this._name = name;
         this._balance = balance;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -52,7 +61,7 @@ public class User implements Parcelable {
         }
     };
 
-    public int get_iD() {
+    public long get_iD() {
         return _iD;
     }
 

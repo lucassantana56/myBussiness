@@ -2,16 +2,21 @@ package com.example.mybussiness.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.service.autofill.UserData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mybussiness.DAO.UserDAO;
 import com.example.mybussiness.R;
 import com.example.mybussiness.activity_billsList;
+import com.example.mybussiness.activity_updateBill;
 import com.example.mybussiness.controller.UserListViewHolder;
+import com.example.mybussiness.model.Bill;
 import com.example.mybussiness.model.User;
 
 import java.util.List;
@@ -21,10 +26,12 @@ import static androidx.core.content.ContextCompat.startActivity;
 public class UserListAdapter extends RecyclerView.Adapter<UserListViewHolder> {
     List<User> users;
     private Context _context;
+    UserDAO userDao;
 
     public UserListAdapter(List<User> users, Context context) {
         this.users = users;
         _context = context;
+        userDao = new UserDAO(_context);
     }
 
 
@@ -49,6 +56,23 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListViewHolder> {
                 intent.putExtra("USERNAME", u.get_name());
                 intent.putExtra("BALANCE", u.get_balance());
                 _context.startActivity(intent);
+            }
+        });
+
+        holder.delete.setTag(u);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User u = (User) v.getTag();
+
+                try {
+                    userDao.DeleteUser(u.get_iD());
+                    users.remove(u);
+                } catch (Exception e) {
+                    Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
     }

@@ -27,6 +27,24 @@ public class BillDAO {
         db = myBusinessDB.getWritableDatabase();
     }
 
+
+    public void UpdateBill(Bill bill) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("bill", bill);
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(BillProvider.BillContract._amount, bill.get_amount());
+        cv.put(BillProvider.BillContract._description, bill.get_description());
+        cv.put(BillProvider.BillContract._expirationDate, dateFormat.format(bill.get_expirationDate()));
+        cv.put(BillProvider.BillContract._name, bill.get_name());
+        cv.put(BillProvider.BillContract._repeat, bill.get_repeat());
+        cv.put(BillProvider.BillContract._userId, bill.get_userId());
+
+        db.update(BillProvider.BillContract._tableName, cv, BillProvider.BillContract._iD + "=?", new String[]{String.valueOf(bill.get_iD())});
+    }
+
     public long InsertBill(Bill bill) {
 
         // set the format to sql date time
@@ -82,5 +100,37 @@ public class BillDAO {
         }
 
         return bills;
+    }
+
+
+    public Bill getBill(long billId) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Cursor cursor = db.query(BillProvider.BillContract._tableName,
+                new String[]{BillProvider.BillContract._iD,
+                        BillProvider.BillContract._name,
+                        BillProvider.BillContract._description,
+                        BillProvider.BillContract._expirationDate,
+                        BillProvider.BillContract._amount,
+                        BillProvider.BillContract._repeat},
+                BillProvider.BillContract._iD + "=?",
+                new String[]{String.valueOf(billId)},
+                null,
+                null,
+                null,
+                null);
+
+
+        cursor.moveToNext();
+
+        Bill b = new Bill();
+        b.set_iD(cursor.getInt(cursor.getColumnIndexOrThrow(BillProvider.BillContract._iD)));
+        b.set_amount(cursor.getFloat(cursor.getColumnIndexOrThrow(BillProvider.BillContract._amount)));
+        b.set_description(cursor.getString(cursor.getColumnIndexOrThrow(BillProvider.BillContract._description)));
+        b.set_name(cursor.getString(cursor.getColumnIndexOrThrow(BillProvider.BillContract._name)));
+        b.set_expirationDate(dateFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow(BillProvider.BillContract._expirationDate))));
+        b.set_repeat(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow(BillProvider.BillContract._repeat))));
+
+        return b;
     }
 }

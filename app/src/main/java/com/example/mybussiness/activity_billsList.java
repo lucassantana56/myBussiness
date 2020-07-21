@@ -32,6 +32,9 @@ public class activity_billsList extends AppCompatActivity {
     BillListAdapter billListAdapter;
     RecyclerView recyclerView;
     BottomAppBar bottomNavigationView;
+    String userName;
+    Float balance;
+    long userId;
 
 
     @Override
@@ -40,12 +43,12 @@ public class activity_billsList extends AppCompatActivity {
         setContentView(R.layout.activity_bills_list);
 
 
-        final String userName = getIntent().getStringExtra("USERNAME");
-        final Float balance = getIntent().getFloatExtra("BALANCE", 0);
-        final long userId = getIntent().getIntExtra("USERID", 0);
+        userName = getIntent().getStringExtra("USERNAME");
+        balance = getIntent().getFloatExtra("BALANCE", 0);
+        userId = getIntent().getLongExtra("USERID", 0);
 
         if (userId == 0) {
-            Toast.makeText(this, "id é 0", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "id é 0", Toast.LENGTH_LONG).show();
         }
 
         billDAO = new BillDAO(this);
@@ -115,20 +118,21 @@ public class activity_billsList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        final long userId = getIntent().getIntExtra("USERID", 0);
-        String userName = getIntent().getStringExtra("USERNAME");
-        final Float balance = getIntent().getFloatExtra("BALANCE", 0);
+        userName = getIntent().getStringExtra("USERNAME");
+        balance = getIntent().getFloatExtra("BALANCE", 0);
 
         textView_UserName.setText(userName);
         textView_Balance.setText(balance + " EUROS");
 
-        Toast.makeText(this, "Hello " + userId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Hello " + userId, Toast.LENGTH_LONG).show();
         try {
             bills = billDAO.getBills(userId);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        createRecycleView();
+
+        billListAdapter = new BillListAdapter(bills, this);
+        billListAdapter.notifyDataSetChanged();
 
     }
 }

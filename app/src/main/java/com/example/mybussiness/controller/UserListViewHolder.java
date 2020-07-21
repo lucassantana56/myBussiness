@@ -17,7 +17,7 @@ public class UserListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView userName;
     public TextView userBalance;
-    public Button login;
+    public Button login, delete;
     public ImageView UserBackImage;
 
     public UserListViewHolder(@NonNull View itemView) {
@@ -26,6 +26,7 @@ public class UserListViewHolder extends RecyclerView.ViewHolder {
         userBalance = itemView.findViewById(R.id.textView_listBalance);
         login = itemView.findViewById(R.id.btn_login);
         UserBackImage = itemView.findViewById(R.id.imageView_ListUser);
+        delete = itemView.findViewById(R.id.btn_delete);
     }
 }
 

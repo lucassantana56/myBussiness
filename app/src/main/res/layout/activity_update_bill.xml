@@ -18,7 +18,7 @@
         android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_addBill_name"
+            android:id="@+id/editText_UpdateBill_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -31,7 +31,7 @@
         android:hint="Description">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_addBill_description"
+            android:id="@+id/editText_UpdateBill_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -45,7 +45,7 @@
         android:hint="Expiration date">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_addBill_expirationDate"
+            android:id="@+id/editText_UpdateBill_expirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="datetime" />
@@ -72,7 +72,7 @@
             android:hint="Amount">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_addBill_amount"
+                android:id="@+id/editText_Update_amount"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -80,7 +80,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switch_addBill_repeat"
+            android:id="@+id/switch_updateBill_repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"

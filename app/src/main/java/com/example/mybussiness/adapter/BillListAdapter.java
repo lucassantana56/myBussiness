@@ -61,7 +61,8 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListViewHolder> {
 
                 try {
                     Intent intent = new Intent(v.getContext(), activity_updateBill.class);
-                    intent.putExtra("BillId", b.get_iD());
+                    intent.putExtra("BILLID", b.get_iD());
+                    intent.putExtra("USERID", b.get_userId());
                     _context.startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
